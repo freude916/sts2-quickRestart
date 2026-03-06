@@ -32,6 +32,7 @@ public static class PauseMenuPatch
             // Duplicate an existing button as our localized retry button
             NPauseMenuButton retryButton = (NPauseMenuButton)saveAndQuitButton.Duplicate();
             retryButton.Name = "Retry";
+            MakeButtonVisualsUnique(retryButton);
             retryButton.GetNode<MegaLabel>("Label")
                 .SetTextAutoSize(ModLocalization.Get("pause_menu.retry", "Retry"));
 
@@ -65,6 +66,18 @@ public static class PauseMenuPatch
     private static void OnRetryPressed(NButton _)
     {
         QuickSaveLoad.QuickLoad();
+    }
+
+    private static void MakeButtonVisualsUnique(NPauseMenuButton retryButton)
+    {
+        TextureRect buttonImage = retryButton.GetNode<TextureRect>("ButtonImage");
+        if (buttonImage.Material is not ShaderMaterial material)
+            return;
+
+        // Godot duplicates nodes but can still share resource instances like materials.
+        // Pause menu hover state is driven by shader params, so give the retry button
+        // its own material to avoid mirroring SaveAndQuit's highlight.
+        buttonImage.Material = (ShaderMaterial)material.Duplicate();
     }
 
     private static void RebuildFocusNeighbors(Control buttonContainer)
