@@ -45,7 +45,7 @@ public static class PauseMenuPatch
             // Connect signal
             retryButton.Connect(
                 NClickableControl.SignalName.Released,
-                Callable.From<NButton>(OnRetryPressed)
+                Callable.From<NButton>(btn => OnRetryPressed(btn, buttonContainer))
             );
 
             // Disable if no autosave exists
@@ -63,8 +63,15 @@ public static class PauseMenuPatch
         }
     }
 
-    private static void OnRetryPressed(NButton _)
+    private static void OnRetryPressed(NButton _, Control buttonContainer)
     {
+        // Disable all buttons during the transition to match fade out behavior
+        foreach (Node child in buttonContainer.GetChildren())
+        {
+            if (child is NPauseMenuButton btn)
+                btn.Disable();
+        }
+
         QuickSaveLoad.QuickLoad();
     }
 

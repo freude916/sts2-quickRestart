@@ -1,6 +1,6 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "quickRestart2", "quickRestart2\quickRestart2.csproj", "{1804BFEB-7D84-4AB3-9A74-D0E04A6309C6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "quickRestart2", "quickRestart2.csproj", "{1804BFEB-7D84-4AB3-9A74-D0E04A6309C6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

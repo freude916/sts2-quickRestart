@@ -100,7 +100,7 @@ public static class ModLocalization
 
     private static string ResolveLanguage()
     {
-        string? language = LocManager.Instance?.Language;
+        string? language = LocManager.Instance.Language;
         if (string.IsNullOrWhiteSpace(language))
             language = TranslationServer.GetLocale();
 

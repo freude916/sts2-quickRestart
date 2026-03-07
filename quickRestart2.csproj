@@ -49,11 +49,7 @@
             <HintPath>$(Sts2DataDir)/sts2.dll</HintPath>
             <Publicize>PublicizeSts</Publicize> <!--Allows private/protected field references but may cause errors.-->
         </Reference>
-        <Reference Include="BaseLib">
-            <HintPath>$(Sts2Path)/mods/BaseLib.dll</HintPath>
-        </Reference>
-
-        <PackageReference Include="Alchyr.Sts2.ModAnalyzers" Version="0.0.1" />
+        
         <AdditionalFiles Include="ModTemplate\localization\**\*.json"/>
     </ItemGroup>
 

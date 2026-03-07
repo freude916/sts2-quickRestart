@@ -3,6 +3,7 @@ bin/
 /android/
 .git/
 .idea/
+project.godot
 .vs/
 publish/
 Properties/
