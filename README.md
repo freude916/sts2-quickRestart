@@ -1,3 +1,9 @@
+This mod no longer maintain since English community have a activier one:
+
+<https://github.com/erasels/StS2-Quick-Restart>
+
+---
+
 # QuickRestart2 — 快速重打 Mod for 尖塔2
 
 ## 简介
