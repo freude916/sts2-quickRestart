@@ -1,5 +1,7 @@
 This mod no longer maintain since English community have a activier one:
 
+这个 Mod 不再维护，薄荷尖塔的维护者已经手搓了一个，安全性应该比我这个 Vibe 的强
+
 <https://github.com/erasels/StS2-Quick-Restart>
 
 ---
