@@ -1,4 +1,4 @@
-﻿<Project Sdk="Godot.NET.Sdk/4.5.1">
+<Project Sdk="Godot.NET.Sdk/4.5.1">
     <PropertyGroup>
         <TargetFramework>net9.0</TargetFramework>
         <ImplicitUsings>true</ImplicitUsings>
@@ -59,10 +59,10 @@
         </Reference>
         <Reference Include="sts2">
             <HintPath>$(Sts2DataDir)/sts2.dll</HintPath>
-            <Publicize>PublicizeSts</Publicize> <!--Allows private/protected field references but may cause errors.-->
+            <Publicize>True</Publicize> <!--Allows private/protected field references but may cause errors.-->
         </Reference>
         
-        <AdditionalFiles Include="ModTemplate\localization\**\*.json"/>
+        <AdditionalFiles Include="quickRestart2\localization\**\*.json"/>
     </ItemGroup>
 
     <ItemGroup>

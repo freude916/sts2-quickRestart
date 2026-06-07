@@ -1,7 +1,6 @@
 using Godot;
 using HarmonyLib;
 using MegaCrit.Sts2.addons.mega_text;
-using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Multiplayer.Game;
 using MegaCrit.Sts2.Core.Nodes.GodotExtensions;
 using MegaCrit.Sts2.Core.Nodes.Screens.PauseMenu;
@@ -27,18 +26,18 @@ public static class PauseMenuPatch
 
         try
         {
-            Control buttonContainer = __instance.GetNode<Control>("%ButtonContainer");
-            NPauseMenuButton saveAndQuitButton = buttonContainer.GetNode<NPauseMenuButton>("SaveAndQuit");
+            Control buttonContainer = __instance._buttonContainer;
+            NPauseMenuButton saveAndQuitButton = __instance._saveAndQuitButton;
 
             // Duplicate an existing button as our localized retry button
             NPauseMenuButton retryButton = (NPauseMenuButton)saveAndQuitButton.Duplicate();
             retryButton.Name = "Retry";
             MakeButtonVisualsUnique(retryButton);
             retryButton.GetNode<MegaLabel>("Label")
-                .SetTextAutoSize(new LocString("gameplay_ui", "QUICKRESTART2.pause_menu.retry").GetFormattedText());
+                .SetTextAutoSize(GetRetryButtonText());
 
             // Insert before GiveUp
-            NPauseMenuButton giveUpButton = buttonContainer.GetNode<NPauseMenuButton>("GiveUp");
+            NPauseMenuButton giveUpButton = __instance._giveUpButton;
             int giveUpIndex = giveUpButton.GetIndex();
             buttonContainer.AddChild(retryButton);
             buttonContainer.MoveChild(retryButton, giveUpIndex);
@@ -83,6 +82,12 @@ public static class PauseMenuPatch
         buttonImage.Material = (ShaderMaterial)material.Duplicate();
     }
 
+    private static string GetRetryButtonText()
+    {
+        string locale = TranslationServer.GetLocale();
+        return locale.StartsWith("zh", StringComparison.OrdinalIgnoreCase) ? "重试" : "Retry";
+    }
+
     private static void RebuildFocusNeighbors(Control buttonContainer)
     {
         List<NPauseMenuButton> buttons = [];
@@ -114,7 +119,7 @@ public static class SaveAndQuitDisablePatch
     public static void Prefix(NPauseMenu __instance)
     {
         // Disable all buttons in the container, including our Retry button
-        Control buttonContainer = __instance.GetNode<Control>("%ButtonContainer");
+        Control buttonContainer = __instance._buttonContainer;
         foreach (Node child in buttonContainer.GetChildren())
         {
             if (child is NPauseMenuButton btn)

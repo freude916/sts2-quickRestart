@@ -4,7 +4,7 @@
   "author": "erasels, freude916, copilot, Anthropic Opus 4.6",
   "description": "quick save & load in Sts2",
   "version": "v0.1.2.99-archived",
-  "has_pck": true,
+  "has_pck": false,
   "has_dll": true,
   "dependencies": [
   ],
