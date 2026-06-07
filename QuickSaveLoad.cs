@@ -20,6 +20,7 @@ public static class QuickSaveLoad
 
     private static async Task QuickLoadAsync()
     {
+        bool fadedOut = false;
         try
         {
             // 1. Read the game's own autosave
@@ -38,8 +39,9 @@ public static class QuickSaveLoad
             NRunMusicController.Instance?.StopMusic();
 
             await NGame.Instance!.Transition.FadeOut();
+            fadedOut = true;
 
-            RunManager.Instance.CleanUp(graceful: false);
+            RunManager.Instance.CleanUp(graceful: true);
 
             // 3. Reload from save (same flow as NMainMenu.OnContinueButtonPressedAsync)
             await RunManager.Instance.SetUpSavedSingleplayer(runState, serializableRun);
@@ -52,6 +54,10 @@ public static class QuickSaveLoad
         catch (Exception ex)
         {
             MainFile.Logger.Error($"Quick Load failed: {ex}");
+            if (fadedOut)
+            {
+                await NGame.Instance!.Transition.FadeIn();
+            }
         }
     }
 }
