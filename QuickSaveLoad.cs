@@ -20,38 +20,42 @@ public static class QuickSaveLoad
 
     private static async Task QuickLoadAsync()
     {
+        if (NGame.Instance == null) return;
+
         try
         {
             // 1. Read the game's own autosave
-            ReadSaveResult<SerializableRun> result = SaveManager.Instance.LoadRunSave();
+            var result = SaveManager.Instance.LoadRunSave();
             if (!result.Success || result.SaveData == null)
             {
                 MainFile.Logger.Error($"Quick Load failed: could not read autosave. Status={result.Status}");
                 return;
             }
-
-            SerializableRun serializableRun = result.SaveData;
-            RunState runState = RunState.FromSerializable(serializableRun);
+            var serializableRun = result.SaveData;
+            var runState = RunState.FromSerializable(serializableRun);
 
             // 2. Tear down the current run
             RunManager.Instance.ActionQueueSet.Reset();
             NRunMusicController.Instance?.StopMusic();
+            NAudioManager.Instance?.StopMusic();
 
-            await NGame.Instance!.Transition.FadeOut();
+            await NGame.Instance.Transition.FadeOut();
 
-            RunManager.Instance.CleanUp();
+            RunManager.Instance.CleanUp(graceful: true);
 
             // 3. Reload from save (same flow as NMainMenu.OnContinueButtonPressedAsync)
             await RunManager.Instance.SetUpSavedSingleplayer(runState, serializableRun);
             NGame.Instance.ReactionContainer.InitializeNetworking(new NetSingleplayerGameService());
             await NGame.Instance.LoadRun(runState, serializableRun.PreFinishedRoom);
-            await NGame.Instance.Transition.FadeIn();
-
             MainFile.Logger.Info("Quick Load completed successfully.");
         }
         catch (Exception ex)
         {
             MainFile.Logger.Error($"Quick Load failed: {ex}");
+        }
+        finally
+        {
+            await NGame.Instance.Transition.FadeIn();
         }
     }
 }
