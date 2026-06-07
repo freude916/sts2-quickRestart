@@ -42,7 +42,7 @@ public static class QuickSaveLoad
             RunManager.Instance.CleanUp();
 
             // 3. Reload from save (same flow as NMainMenu.OnContinueButtonPressedAsync)
-            await RunManager.Instance.SetUpSavedSinglePlayer(runState, serializableRun);
+            await RunManager.Instance.SetUpSavedSingleplayer(runState, serializableRun);
             NGame.Instance.ReactionContainer.InitializeNetworking(new NetSingleplayerGameService());
             await NGame.Instance.LoadRun(runState, serializableRun.PreFinishedRoom);
             await NGame.Instance.Transition.FadeIn();
