@@ -59,10 +59,17 @@
         </Reference>
         <Reference Include="sts2">
             <HintPath>$(Sts2DataDir)/sts2.dll</HintPath>
-            <Publicize>PublicizeSts</Publicize> <!--Allows private/protected field references but may cause errors.-->
         </Reference>
         
-        <AdditionalFiles Include="ModTemplate\localization\**\*.json"/>
+        <AdditionalFiles Include="quickRestart2\localization\**\*.json"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Krafs.Publicizer" Version="2.3.0" PrivateAssets="All"/>
+    </ItemGroup>
+
+    <ItemGroup Condition="True">
+        <Publicize Include="sts2" IncludeVirtualMembers="false" IncludeCompilerGeneratedMembers="false"/>
     </ItemGroup>
 
     <ItemGroup>
@@ -87,13 +94,6 @@
     <ItemGroup>
         <None Include="README_en.md" />
         <None Include="README.md" />
-    </ItemGroup>
-
-    <ItemGroup>
-        <PackageReference Include="BepInEx.AssemblyPublicizer.MSBuild" Version="0.4.3">
-            <PrivateAssets>all</PrivateAssets>
-            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-        </PackageReference>
     </ItemGroup>
 
     <Target Name="CheckDependencyPaths">

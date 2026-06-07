@@ -1,9 +1,9 @@
 {
   "id": "quickRestart2",
   "name": "quickRestart2",
-  "author": "erasels, freude916, copilot, Anthropic Opus 4.6",
+  "author": "freude916, GLM-5.1",
   "description": "quick save & load in Sts2",
-  "version": "v0.1.2.99-archived",
+  "version": "v0.1.107",
   "has_pck": true,
   "has_dll": true,
   "dependencies": [
